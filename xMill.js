@@ -7,9 +7,7 @@
 // Constructor
 function XMill(x,y,size) {
   this.len = size/2;
-
-  console.log('creating new xMill at ' + x + " " + y);
-
+  
   // windmill elements
   // this.box1 = new Box(x, y-20, 120, 10, false); 
   this.pinWheel = new Box(x, y, 1, 1, true); 
