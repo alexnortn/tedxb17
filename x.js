@@ -25,7 +25,7 @@ function X(x, y, size) {
       fd1.shape.SetAsOrientedBox(scaleToWorld(this.w/2), scaleToWorld(this.h/2), fdCenter, -QUARTER_PI);
       fd1.density = 1.0;
       fd1.friction = 0.5;
-      fd1.restitution = 0.75;
+      fd1.restitution = 0.5;
 
   // Define fixture #2
   let fd2 = new box2d.b2FixtureDef();

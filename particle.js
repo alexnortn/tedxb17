@@ -8,6 +8,8 @@
 function Particle(x, y, size) {
   this.r = size;
 
+  this.col = color(0);
+
   // Define a body
   var bd = new box2d.b2BodyDef();
   bd.type = box2d.b2BodyType.b2_dynamicBody;
@@ -20,7 +22,7 @@ function Particle(x, y, size) {
   fd.shape.m_radius = scaleToWorld(this.r);
   
   // Some physics
-  fd.density = 1.0;
+  fd.density = 25.0;
   fd.friction = 0.1;
   fd.restitution = 0.3;
  
@@ -50,6 +52,11 @@ function Particle(x, y, size) {
     return false;
   }
 
+  // Change color when hit
+  this.change = function() {
+    this.col = color(255, 0, 0);
+  }
+
   // Drawing the box
   this.display = function() {
     // Get the body's position
@@ -62,7 +69,7 @@ function Particle(x, y, size) {
     push();
     translate(pos.x,pos.y);
     rotate(a);
-    fill(0);
+    fill(this.col);
     noStroke();
     ellipse(0,0,this.r*2,this.r*2);
     // Let's add a line so we can see the rotation

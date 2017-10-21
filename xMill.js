@@ -29,8 +29,8 @@ function XMill(x,y,size) {
 
   // Create the joint
   this.joint = world.CreateJoint(rjd);
-  this.joint.SetLimits(-HALF_PI, HALF_PI);
-  this.joint.EnableLimit(true);
+  // this.joint.SetLimits(-HALF_PI, HALF_PI);
+  // this.joint.EnableLimit(true);
   this.joint.EnableMotor(true);
   this.joint.SetMaxMotorTorque(1000);
   this.joint.SetMotorSpeed(0);
@@ -59,7 +59,8 @@ function XMill(x,y,size) {
     let gain = 0.05;
 
     this.joint.SetMotorSpeed(-gain * degrees(angle));
-    this.joint.SetMaxMotorTorque(abs(degrees(angle)) * 1000);
+    // let power = degrees(angle) < 2.5 ? 0 : 1000;
+    this.joint.SetMaxMotorTorque(1000 * abs(degrees(angle)) + pow(abs(angle), 10) * 100);
 
   }
 

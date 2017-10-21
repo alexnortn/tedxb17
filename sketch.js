@@ -31,6 +31,7 @@ function setup() {
 
   // Initialize box2d physics and create the world
   world = createWorld();
+  world.SetContactListener(new CustomListener());
 
   // For box2D to work, we must always step through time each frame
   timeStep = 1.0/30;
