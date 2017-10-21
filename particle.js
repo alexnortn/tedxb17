@@ -22,7 +22,7 @@ function Particle(x, y, size) {
   fd.shape.m_radius = scaleToWorld(this.r);
   
   // Some physics
-  fd.density = 25.0;
+  fd.density = 20.0;
   fd.friction = 0.1;
   fd.restitution = 0.3;
  

@@ -19,12 +19,50 @@ let mills = [];
 let count = 0;
 let max_count = 1000;
 
-let x_size,
-    x_margin,
-    p_size,
-    p_rate,
-    kw,
-    kh;
+let layout = {};
+
+// optimize xs / xm · wrt perfect, responsive layout
+// recursive hillclimbing
+// 0: xs 1: xm 2: xk 3: yk 4: ps 5: re
+function layoutMachine(w,h) {
+  let _xs,_xm;
+  let best;
+  // starting points
+  _xs = 100;
+  _xm = _xs/4;
+
+  sols = [];
+
+  // cost function » optimize for re
+  function costf(xs,xm) {
+    let xk,yk,ps,re;
+    // how many x fit on canvas width
+    xk = Math.floor((xs + w + xm) / (xs + xm));
+    // how many x fit on canvas height
+    yk = Math.ceil((h*0.6) / (xs  + xm));
+    ps = xs/8,
+    // leftover space
+    re = Math.round((w + xs) - (xk * (xs + xm) - xm));
+    // solution
+    return [xs,xm,xk,yk,ps,re];
+  }
+
+  for(let i=-50; i<50; i++) {       // Search ± 25% xs
+    for(let j=-10; j<10; j++) {     // Search ± 10% xm
+      sols.push(
+        costf(
+          _xs + (_xs * ((100 - i) * 0.01)),
+          _xm + (_xm * ((100 - i) * 0.01))
+        )
+      )
+    }
+  }
+
+  best = sols.sort((a,b) => { return b[5] - a[5] }).pop();
+  console.log(best);
+  return best;
+
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -37,27 +75,33 @@ function setup() {
   timeStep = 1.0/30;
 
   // Make the windmill at an x,y location
-  x_size = isMobile.any ? 400 : 200;
-  console.log(x_size);
   p_rate = isMobile.any ? 0.005 : 0.01 
-  x_margin = x_size/4,
-  p_size = x_size/8,
-  kw = 1 + Math.ceil((width) / (x_size  + x_margin)),
-  kh = 1 + Math.ceil((height*0.6) / (x_size  + x_margin));
+  
+  // calculate layout
+  let l = layoutMachine(width,height);
+  
+  layout["xs"] = l[0];
+  layout["xm"] = l[1];
+  layout["xk"] = l[2];
+  layout["yk"] = l[3];
+  layout["ps"] = l[4];
+  layout["re"] = l[5];
 
-  for (let i=0; i<kh; i++) {
-    for (let j=0; j<kw; j++) {
+  for (let i=0; i<layout.yk; i++) {
+    for (let j=0; j<layout.xk; j++) {
       if (count >= max_count) return;
       mills.push(
         xMill = new XMill(
-          j * (x_size + x_margin) - x_size - x_margin,
-          i * (x_size + x_margin) - x_size - x_margin,
-          x_size
+          j * (layout.xs + layout.xm),
+          i * (layout.xs + layout.xm),
+          layout.xs
         )
       );
       count++;
     }
   }
+
+  console.log(count);
 
   // mills.push(
   //   new XMill(width/2, height/2, x_size)
@@ -69,11 +113,11 @@ function draw() {
   background(255);
 
   // 2nd and 3rd arguments are velocity and position iterations
-  world.Step(timeStep,10,10);
+  // world.Step(timeStep,10,10);
 
   // Particle emitter
   if (random(1) < p_rate) {
-    particles.push(new Particle(random(0,width),-20, p_size));
+    // particles.push(new Particle(random(0,width),-20, layout.ps));
   }
 
 
