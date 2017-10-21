@@ -29,8 +29,9 @@ function XMill(x,y,size) {
 
   // Create the joint
   this.joint = world.CreateJoint(rjd);
-  this.joint.SetLimits(-HALF_PI, HALF_PI);
-  this.joint.EnableLimit(true);
+  // this.joint.SetLimits(-HALF_PI, HALF_PI);
+  // this.joint.EnableLimit(true);
+  this.joint.EnableMotor(true);
 
   this.display = function() {
     this.pinWheel.display();
@@ -47,18 +48,11 @@ function XMill(x,y,size) {
 
   this.update = function() {
     let angle = this.joint.GetJointAngleRadians();
-    let rads = [];
-        rads.push(angle % (PI/2));
-        rads.push(angle % PI);
-        rads.push(angle % (3*PI/2));
-        rads.push(angle % (2*PI));
-
-    let theta = rads.sort((a,b) => { return abs(b - a) }).pop();
 
     // apply torque to reduce this angle
-    let dir = theta > 0 ? -1 : 1;
-    let speed = map( abs(theta), 0, HALF_PI, 0, 100 ) * dir;
+    let speed = map( angle, -HALF_PI, HALF_PI, -100, 100 );  
     this.joint.SetMotorSpeed(speed);
+    this.joint.SetMaxMotorTorque(speed * 10);
     // console.log(this.joint.GetMotorSpeed());
 
   }
