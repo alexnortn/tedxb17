@@ -32,11 +32,11 @@ function setup() {
   timeStep = 1.0/30;
 
   // Make the windmill at an x,y location
-  x_size = 100,
+  x_size = 200,
   x_margin = x_size/6,
   p_size = x_size/6,
   kw = 1 + Math.ceil((width) / (x_size  + x_margin)),
-  kh = 1 + Math.ceil((height/2) / (x_size  + x_margin));
+  kh = 1 + Math.ceil((height*0.6) / (x_size  + x_margin));
 
   for (let i=0; i<kh; i++) {
     for (let j=0; j<kw; j++) {
