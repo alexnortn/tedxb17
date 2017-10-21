@@ -34,7 +34,7 @@ function setup() {
   // Make the windmill at an x,y location
   x_size = 200,
   x_margin = x_size/6,
-  p_size = x_size/6,
+  p_size = x_size/8,
   kw = 1 + Math.ceil((width) / (x_size  + x_margin)),
   kh = 1 + Math.ceil((height*0.6) / (x_size  + x_margin));
 
