@@ -29,6 +29,8 @@ function XMill(x,y,size) {
 
   // Create the joint
   this.joint = world.CreateJoint(rjd);
+  this.joint.SetLimits(-HALF_PI, HALF_PI);
+  this.joint.EnableLimit(true);
 
   this.display = function() {
     this.pinWheel.display();
