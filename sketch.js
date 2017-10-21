@@ -57,6 +57,11 @@ function setup() {
       count++;
     }
   }
+
+  // mills.push(
+  //   new XMill(width/2, height/2, x_size)
+  // );
+
 }
 
 function draw() {

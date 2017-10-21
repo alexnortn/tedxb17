@@ -19,9 +19,9 @@ function XMill(x,y,size) {
   rjd.Initialize(this.xShape.body, this.pinWheel.body, this.xShape.body.GetWorldCenter());
 
   // Turning on a motor (optional)
-  rjd.motorSpeed = 0;       // how fast?
-  rjd.maxMotorTorque = 50.0; // how powerful?
-  rjd.enableMotor = true;      // is it on?
+  // rjd.motorSpeed = 0;       // how fast?
+  // rjd.maxMotorTorque = 100.0; // how powerful?
+  // rjd.enableMotor = true;      // is it on?
 
   // There are many other properties you can set for a Revolute joint
   // For example, you can limit its angle between a minimum and a maximum
@@ -29,9 +29,11 @@ function XMill(x,y,size) {
 
   // Create the joint
   this.joint = world.CreateJoint(rjd);
-  // this.joint.SetLimits(-HALF_PI, HALF_PI);
-  // this.joint.EnableLimit(true);
+  this.joint.SetLimits(-HALF_PI, HALF_PI);
+  this.joint.EnableLimit(true);
   this.joint.EnableMotor(true);
+  this.joint.SetMaxMotorTorque(1000);
+  this.joint.SetMotorSpeed(0);
 
   this.display = function() {
     this.pinWheel.display();
@@ -48,12 +50,16 @@ function XMill(x,y,size) {
 
   this.update = function() {
     let angle = this.joint.GetJointAngleRadians();
-
     // apply torque to reduce this angle
-    let speed = map( angle, -HALF_PI, HALF_PI, -100, 100 );  
-    this.joint.SetMotorSpeed(speed);
-    this.joint.SetMaxMotorTorque(speed * 10);
-    // console.log(this.joint.GetMotorSpeed());
+    // let speed = map( angle, -HALF_PI, HALF_PI, 100, -100 );  
+    // if (degrees(angle) < 0.05) {
+    //   angle = 0;
+    // }
+
+    let gain = 0.05;
+
+    this.joint.SetMotorSpeed(-gain * degrees(angle));
+    this.joint.SetMaxMotorTorque(abs(degrees(angle)) * 1000);
 
   }
 
