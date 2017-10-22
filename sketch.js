@@ -17,7 +17,7 @@ let xMill;
 let timeStep;
 let mills = [];
 let count = 0;
-let max_count = 1000;
+let max_count = 100000;
 
 let layout = {};
 
@@ -28,7 +28,7 @@ function layoutMachine(w,h) {
   let _xs,_xm;
   let best;
   // starting points
-  _xs = 100;
+  _xs = 75;
   _xm = _xs/4;
 
   sols = [];
@@ -113,11 +113,11 @@ function draw() {
   background(255);
 
   // 2nd and 3rd arguments are velocity and position iterations
-  // world.Step(timeStep,10,10);
+  world.Step(timeStep,10,10);
 
   // Particle emitter
   if (random(1) < p_rate) {
-    // particles.push(new Particle(random(0,width),-20, layout.ps));
+    particles.push(new Particle(random(0,width),-20, layout.ps));
   }
 
 

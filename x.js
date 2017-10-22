@@ -76,7 +76,7 @@ function X(x, y, size) {
       translate(pos.x, pos.y);
       rotate(a);
 
-      fill(255,0,0);
+      fill(230,43,30);
       noStroke();
 
       push();
