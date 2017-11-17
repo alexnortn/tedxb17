@@ -1,6 +1,7 @@
 <html>
 <head>
   <title>TEDx</title>
+  <script language="javascript" type="text/javascript" src="iai.js"></script>
   <script language="javascript" type="text/javascript" src="./lib/box2d-html5.js"></script>
   <script language="javascript" type="text/javascript" src="./lib/box2d-helper.js"></script>
   <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/p5.js/0.3.2/p5.min.js"></script>
@@ -22,26 +23,80 @@
       font-family: Helvetica, sans-serif;
       color; black;
       font-weight: bold;
-      font-size: 64px;
+      font-size: 56px;
+      margin-bottom: 72px;
     }
 
-    #title {
+    ul {
+      display: inline-block;
+      position: relative;
+      padding: 0;
+      bottom: 0;
+    }
+
+    ul li {
+      display: inline;
+      font-family: Helvetica, sans-serif;
+      color; black;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 32px;
+
+      margin-left: 64px;
+    }
+
+    ul li:first-child {
+      margin-left: 0;
+    }
+
+    #bottom-row {
+      width: 100%;
+      height: 64px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #container {
       position: absolute;
       left: 0;
       bottom: 0;
       width: 100%;
       z-index: -100;
+      box-sizing: border-box;
+      padding: 40px 64px;
     }
 
-    #title img {
-      width: 100%;
+    #container img {
+      width: 200px;
+      height: 28px;
     }
   </style>
 </head>
 <body>
-<div id="title">
-  <img src="images/logo.svg" alt="TEDxBeaconStreet2017">
+<div id="container">
+  <h1 id="ideasinaction">My nonprofit in launching a new community based natural science educational program and coral farm in Holyoke, MA.</h1>
+  <div id="bottom-row">
+    <ul>
+      <li>#ideasinaction</li>
+      <li>#tedxbeaconst</li>
+      <li>@tedxbeaconst</li>
+    </ul>
+    <img src="images/tedx.png" alt="TEDxBeaconStreet2017">
+  </div>
 </div>
+
+<script type="text/javascript">
+  let idea = document.getElementById('ideasinaction');
+  
+  window.setInterval(function() { 
+    let idea_index = Math.floor(Math.random() * iai.length);
+    idea.innerHTML = iai[idea_index];
+    console.log('update');
+  }, 5000);
+
+</script>
 
 </body>
 </html>
