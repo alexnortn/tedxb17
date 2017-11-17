@@ -143,10 +143,10 @@ function draw() {
 }
 
 // Might be kind of cool, to make this interactive wrt mouse!!
-function mousePressed() {
-  mills.forEach((m, i) => {
-    m.toggleMotor();
-    console.log(i + " " + m.motorOn());
-  });
-  // xMill.toggleMotor();
-}
+// function mousePressed() {
+//   mills.forEach((m, i) => {
+//     m.toggleMotor();
+//     console.log(i + " " + m.motorOn());
+//   });
+//   // xMill.toggleMotor();
+// }

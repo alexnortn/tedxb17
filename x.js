@@ -34,7 +34,7 @@ function X(x, y, size) {
       fd2.shape.SetAsOrientedBox(scaleToWorld(this.w/2), scaleToWorld(this.h/2), fdCenter, QUARTER_PI);
       fd2.density = 1.0;
       fd2.friction = 0.5;
-      fd2.restitution = 0.75;
+      fd2.restitution = 0.2;
 
   // Create the body
   this.body = world.CreateBody(bd);
