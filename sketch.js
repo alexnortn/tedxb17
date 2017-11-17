@@ -110,7 +110,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  clear();
 
   // 2nd and 3rd arguments are velocity and position iterations
   world.Step(timeStep,10,10);
