@@ -28,7 +28,7 @@ function layoutMachine(w,h) {
   let _xs,_xm;
   let best;
   // starting points
-  _xs = 52;
+  _xs = 72;
   _xm = _xs/4;
 
   sols = [];
